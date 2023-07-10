@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from rh.routes.log import log
 from dsi.routes.device import device
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -12,4 +13,5 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(log)
 app.include_router(device)
