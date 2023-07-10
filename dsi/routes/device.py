@@ -2,9 +2,9 @@ from fastapi import APIRouter
 
 from bson import ObjectId
 from config.db import devicesdb
-from transmute.device import process_query_data
-from schemas.device import devicesEntity, deviceEntity
-from models.device import PostDevice, FilterDevice
+from dsi.transmute.device import process_query_data
+from dsi.schemas.device import devicesEntity, deviceEntity
+from dsi.models.device import PostDevice, FilterDevice
 
 device = APIRouter(prefix="/devices", tags=["Devices CRUD routes"])
 
