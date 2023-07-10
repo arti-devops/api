@@ -1,4 +1,4 @@
-from models.options import ListOptions
+from dsi.models.options import ListOptions
 from pydantic import BaseModel, Field, validator
 
 class Device(BaseModel):

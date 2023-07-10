@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routes.device import device
+from dsi.routes.device import device
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
