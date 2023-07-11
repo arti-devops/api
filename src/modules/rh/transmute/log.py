@@ -1,6 +1,7 @@
 import pandas as pd
-from src.config.db import logsdb, logsrawdb
 from src.utils.process_dates import *
+from src.config.db import logsdb, logsrawdb
+from src.utils.process_dates import create_is_late_flag
 from src.modules.rh.schemas.log import absCountEntity, latesCountEntity, dailyLogsEntity
 
 def query_month_log_count(sdate, edate) -> list:
@@ -134,4 +135,6 @@ def process_month_log_count(sdate, edate) -> list:
     return df.to_dict(orient='records')
 
 def process_daily_logs(ddate) -> list:
-    return query_daily_logs(ddate)
+    df = pd.DataFrame(query_daily_logs(ddate))
+    df['log_time_islate'] = df.log_time.map(lambda x: create_is_late_flag(x))
+    return df.to_dict(orient='records')

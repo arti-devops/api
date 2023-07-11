@@ -7,7 +7,7 @@ class Device(BaseModel):
     device_status: str = Field(default="offline", description="Device status")
     device_brand_name: str = Field(default="Yealink", description="Device brand name")
     device_ip_address: str = Field(default="192.168.0.220", description="Device IP address")
-    device_post_number: int = Field(default=711, description="Device post number")
+    device_post_number: str = Field(default="711", description="Device post number")
     device_brand_model: str = Field(default="T33G", description="Device brand model")
     device_serial_number: str = Field(default="VNC00015LK", description="Device serial number")
 
