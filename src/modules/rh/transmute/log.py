@@ -1,6 +1,6 @@
-from utils.process_dates import *
-from config.db import pymongo, logsdb
-from rh.schemas.log import latesCountEntity
+from src.config.db import logsdb
+from src.utils.process_dates import *
+from src.modules.rh.schemas.log import latesCountEntity
 
 def process_month_log_count(sdate, edate):
 

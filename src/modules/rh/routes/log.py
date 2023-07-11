@@ -1,9 +1,9 @@
 from fastapi import APIRouter
 from pydantic import Field
 
-from config.db import logsdb
-from rh.schemas.log import logsEntity
-from rh.transmute.log import process_month_log_count
+from src.config.db import logsdb
+from src.modules.rh.schemas.log import logsEntity
+from src.modules.rh.transmute.log import process_month_log_count
 
 log = APIRouter(prefix="/logs", tags=["Logs list routes"])
 

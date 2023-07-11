@@ -1,6 +1,6 @@
 from fastapi import FastAPI
-from rh.routes.log import log
-from dsi.routes.device import device
+from src.modules.rh.routes.log import log
+from src.modules.dsi.routes.device import device
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

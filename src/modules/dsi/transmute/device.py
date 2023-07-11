@@ -1,5 +1,5 @@
-from config.db import pymongo, devicesdb
-from dsi.schemas.device import devicesEntity
+from src.config.db import pymongo, devicesdb
+from src.modules.dsi.schemas.device import devicesEntity
 
 def process_query_data(filter):
 
