@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from pydantic import Field
 
 from src.config.db import logsdb
 from src.modules.rh.schemas.log import logsEntity
