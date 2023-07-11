@@ -9,5 +9,15 @@ def logEntity(item) -> dict:
         "log_count": int(item["log_count"])
     }
 
+def lateCountEntity(item) -> dict:
+    return{
+        "log_member_id": str(item["log_member_id"]),
+        "log_member_name": str(item["log_member_name"]),
+        "log_month_count": int(item["log_month_count"])
+    }
+
 def logsEntity(entity) -> list:
     return [logEntity(item) for item in entity]
+
+def latesCountEntity(entity) -> dict:
+    return [lateCountEntity(item) for item in entity]
