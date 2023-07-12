@@ -4,6 +4,7 @@ from src.modules.dsi.schemas.device import devicesEntity
 def process_query_data(filter):
 
     q = filter.q
+    dtype = filter.dtype
     brand = filter.brand
     status = filter.status
     options = filter.options
@@ -22,6 +23,8 @@ def process_query_data(filter):
     query = {}
 
     # Search and filter devices
+    if dtype:
+        query["device_type"] = {"$regex": dtype, "$options": "i"}
     if q:
         query["device_user"] = {"$regex": q, "$options": "i"}
     if brand:

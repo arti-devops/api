@@ -13,8 +13,9 @@ class Device(BaseModel):
 
 class DeviceFilter(BaseModel):
     q: str = Field(default="", description="Search by value")
-    brand: str = Field(default="", description="Brand filter")
-    status: str = Field(default="", description="Status filter")
+    dtype: str = Field(default="", description="Device Type filter")
+    brand: str = Field(default="", description="Device Brand filter")
+    status: str = Field(default="", description="Device Status filter")
     options: ListOptions = ListOptions()
 
     @validator('brand', 'status', pre=True)
