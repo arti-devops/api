@@ -125,6 +125,26 @@ def query_daily_logs(ddate) -> list:
     ]
     return dailyLogsEntity(logsrawdb.aggregate(query))
 
+def query_month_working_days(sdate, edate):
+
+    query = [
+        {
+            '$match': {
+                'log_date': {
+                    '$gte': create_timestamp_from_YMD(sdate), 
+                    '$lte': create_timestamp_from_YMD(edate),
+                }
+            }
+        }, {
+            '$group': {
+                '_id': '$log_date'
+            }
+        }, {
+            '$count': 'count'
+        }
+    ]
+    return [x["count"] for x in logsrawdb.aggregate(query)][0]
+
 def process_month_log_count(sdate, edate) -> list:
     df_abs = query_month_log_count(sdate, edate)
     df_late = query_month_late_count(sdate, edate)
@@ -132,6 +152,8 @@ def process_month_log_count(sdate, edate) -> list:
     df = df.filter(regex='^(?!.*_y)').fillna(0).sort_values(by=["log_month_late_count"], ascending=False)
     df['log_month_count'] = df.log_month_count.map(lambda x: int(x))
     df['log_month_late_count'] = df.log_month_late_count.map(lambda x: int(x))
+    df['log_month_working_days'] = query_month_working_days(sdate, edate)
+    df['log_month_absence_count'] = df.log_month_working_days - df.log_month_count
     return df.to_dict(orient='records')
 
 def process_daily_logs(ddate) -> list:
