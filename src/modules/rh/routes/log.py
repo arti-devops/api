@@ -11,7 +11,7 @@ log = APIRouter(prefix="/logs", tags=["Logs list routes"])
 async def find_all_logs():
     return logsEntity(logsdb.find().limit(20))
 
-@log.get("/dailylog/{ddate}")
+@log.get("/dailylog/{ddate}", response_model=LogArrival)
 async def get_members_daily_logs(ddate):
     return process_daily_logs(ddate)
 
