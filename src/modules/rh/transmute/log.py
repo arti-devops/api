@@ -3,6 +3,7 @@ from src.utils.process_dates import *
 from src.config.db import logsdb, logsrawdb
 from src.utils.process_dates import create_is_late_flag
 from src.modules.rh.schemas.log import absCountEntity, latesCountEntity, dailyLogsEntity
+from src.utils.response.response import response_builder_log
 
 def query_month_log_count(sdate, edate) -> list:
 
@@ -146,17 +147,24 @@ def query_month_working_days(sdate, edate):
     return [x["count"] for x in logsrawdb.aggregate(query)][0]
 
 def process_month_log_count(sdate, edate) -> list:
+    df = pd.DataFrame()
     df_abs = query_month_log_count(sdate, edate)
     df_late = query_month_late_count(sdate, edate)
-    df = pd.merge(pd.DataFrame(df_abs), pd.DataFrame(df_late), how="left", on="log_member_id", suffixes=('', '_y'))
-    df = df.filter(regex='^(?!.*_y)').fillna(0).sort_values(by=["log_month_late_count"], ascending=False)
-    df['log_month_count'] = df.log_month_count.map(lambda x: int(x))
-    df['log_month_late_count'] = df.log_month_late_count.map(lambda x: int(x))
-    df['log_month_working_days'] = query_month_working_days(sdate, edate)
-    df['log_month_absence_count'] = df.log_month_working_days - df.log_month_count
-    return df.to_dict(orient='records')
+    try:
+        df = pd.merge(pd.DataFrame(df_abs), pd.DataFrame(df_late), how="left", on="log_member_id", suffixes=('', '_y'))
+        df = df.filter(regex='^(?!.*_y)').fillna(0).sort_values(by=["log_month_late_count"], ascending=False)
+        df['log_month_count'] = df.log_month_count.map(lambda x: int(x))
+        df['log_month_late_count'] = df.log_month_late_count.map(lambda x: int(x))
+        df['log_month_working_days'] = query_month_working_days(sdate, edate)
+        df['log_month_absence_count'] = df.log_month_working_days - df.log_month_count
+        return response_builder_log(df.to_dict(orient='records'), f'{sdate}:{edate}')
+    except Exception:
+        return response_builder_log(df, f'{sdate}:{edate}')
 
 def process_daily_logs(ddate) -> list:
     df = pd.DataFrame(query_daily_logs(ddate))
-    df['log_time_islate'] = df.log_time.map(lambda x: create_is_late_flag(x))
-    return df.to_dict(orient='records')
+    try:
+        df['log_time_islate'] = df.log_time.map(lambda x: create_is_late_flag(x))
+        return response_builder_log(df.to_dict(orient='records'), ddate)
+    except AttributeError:
+        return response_builder_log(df, ddate)

@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from src.config.db import logsdb
+from src.modules.rh.models.log import LogArrival
 from src.modules.rh.schemas.log import logsEntity
 from src.modules.rh.transmute.log import process_month_log_count, process_daily_logs
 
