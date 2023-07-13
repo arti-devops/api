@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from src.modules.rh.routes.log import log
 from src.modules.dsi.routes.device import device
+from src.modules.dsesp.routes.project import project
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -13,5 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(project)
 app.include_router(log)
 app.include_router(device)

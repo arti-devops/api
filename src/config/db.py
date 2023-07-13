@@ -6,3 +6,4 @@ conn = pymongo.MongoClient("mongodb://192.168.0.9",port=27017)
 logsdb = conn.dsi.logs
 logsrawdb = conn.dsi.logs_raw
 devicesdb = conn.dsi.devices
+projectsdb = conn.dsi.projects
