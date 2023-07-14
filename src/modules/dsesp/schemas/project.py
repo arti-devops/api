@@ -30,5 +30,5 @@ def projectEntity(item) -> dict:
         ] for t in item["project_tasks"])
     }
 
-def projetsEntity(entity) -> list:
+def projectsEntity(entity) -> list:
     return [projectEntity(item) for item in entity]
