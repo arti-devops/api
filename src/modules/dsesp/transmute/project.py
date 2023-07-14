@@ -23,7 +23,7 @@ def process_query_data(filter):
 
     # Search and filter devices
     if q:
-        query["device_user"] = {"$regex": q, "$options": "i"}
+        query["project_title"] = {"$regex": q, "$options": "i"}
     if dirname:
         query["project_direction"] = {"$regex": dirname, "$options": "i"}
     if status:
@@ -47,7 +47,7 @@ def process_query_data(filter):
     response = {
         "projects": projects,
         "totalPages": total_pages,
-        "totalDevices": total_projects,
+        "totalProjects": total_projects,
         "page": page
     }
     return response
