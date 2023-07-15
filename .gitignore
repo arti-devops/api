@@ -29,7 +29,7 @@ build/
 *.sqlite3
 
 # Environment variables
-.env
+#.env
 
 # Local development settings
 settings_local.py
