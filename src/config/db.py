@@ -1,6 +1,8 @@
 import pymongo
-#TODO in dev, adapt this link
-conn = pymongo.MongoClient("mongodb://192.168.0.9",port=27017)
+from src.config.env import MONGODB_HOST, MONGODB_PORT
+
+# DB engine
+conn = pymongo.MongoClient(MONGODB_HOST,port=MONGODB_PORT)
 
 # Documents
 logsdb = conn.dsi.logs
