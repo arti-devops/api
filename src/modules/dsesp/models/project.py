@@ -44,3 +44,10 @@ class ProjectFilter(BaseModel):
 
 class FilterProject(BaseModel):
     filter : ProjectFilter = ProjectFilter()
+
+class ProjectColumnsUpdate(BaseModel):
+    project_status: str = Field(..., description="Project Status")
+    project_end_date: str = Field(..., description="Project End Date")
+
+class UpdateProject(BaseModel):
+    update: ProjectColumnsUpdate
