@@ -2,12 +2,16 @@ from typing import List
 from pydantic import BaseModel, Field, validator
 from src.modules.dsesp.models.options import ListOptions
 
-class ProjectMember(BaseModel):
-    project_member_id: str
-    project_member_role: str
-    project_member_name: str
+# SECTION - Project Models
 
-class ProjectTask(BaseModel):
+# ANCHOR - Project Member
+class ProjectMemberModel(BaseModel):
+    project_member_id: str = Field(default="", description="Project member id/matricule")
+    project_member_role: str = Field(default="", description="Project role")
+    project_member_name: str = Field(default="", description="Project name")
+
+# ANCHOR - Project Task
+class ProjectTaskModel(BaseModel):
     project_task_id: str
     project_task_title: str
     project_task_budget: int
@@ -27,9 +31,24 @@ class ProjectResponse(BaseModel):
     project_direction: str
     project_start_date: str
     project_description: str
-    project_members: List[ProjectMember]
-    project_tasks: List[ProjectTask]
+    project_members: List[ProjectMemberModel]
+    project_tasks: List[ProjectTaskModel]
 
+# ANCHOR - Project Member
+class ProjectModel(BaseModel):
+    project_title: str = Field(default="", description="Project title")
+    project_budget: int = Field(default="", description="Project budget")
+    project_status: str = Field(default="", description="Project status")
+    project_stratob: str = Field(default="", description="Project strategic objective")
+    project_end_date: str = Field(default="", description="Project end date")
+    project_direction: str = Field(default="", description="Project direction/departement in charge")
+    project_start_date: str = Field(default="", description="Project start date")
+    project_description: str = Field(default="", description="Project description")
+    project_members: List[ProjectMemberModel]
+
+# !SECTION
+
+# SECTION - Project Filter Models
 class ProjectFilter(BaseModel):
     q: str = Field(default="", description="Search by Project Name")
     dirname: str = Field(default="", description="Project Direction Name filter")
@@ -45,9 +64,19 @@ class ProjectFilter(BaseModel):
 class FilterProject(BaseModel):
     filter : ProjectFilter = ProjectFilter()
 
+# !SECTION
+
+# SECTION - Project Update Models
 class ProjectColumnsUpdate(BaseModel):
     project_status: str = Field(..., description="Project Status")
     project_end_date: str = Field(..., description="Project End Date")
 
 class UpdateProject(BaseModel):
     update: ProjectColumnsUpdate
+
+# SECTION - Create Project Model
+
+class PostProject(BaseModel):
+    project: ProjectModel
+
+# !SECTION - Create Project

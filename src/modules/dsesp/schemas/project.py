@@ -1,3 +1,21 @@
+def get_project_tasks(item,column_name):
+    try:
+        item = item[column_name]
+        return list([
+            dict({
+                "project_task_id": str(t["project_task_id"]),
+                "project_task_title": str(t["project_task_title"]),
+                "project_task_budget": int(t["project_task_budget"]),
+                "project_task_status": str(t["project_task_status"]),
+                "project_task_manager": str(t["project_task_manager"]),
+                "project_task_end_date": str(t["project_task_end_date"]),
+                "project_task_start_date": str(t["project_task_start_date"]),
+                "project_task_description": str(t["project_task_description"]),
+            })
+        ] for t in item)
+    except:
+        return None
+
 def projectEntity(item) -> dict:
     return{
         "project_id": str(item["_id"]),
@@ -16,18 +34,7 @@ def projectEntity(item) -> dict:
                 "project_member_name": str(m["project_member_name"]),
         })
         ] for m in item["project_members"]),
-        "project_tasks": list([
-            dict({
-                "project_task_id": str(t["project_task_id"]),
-                "project_task_title": str(t["project_task_title"]),
-                "project_task_budget": int(t["project_task_budget"]),
-                "project_task_status": str(t["project_task_status"]),
-                "project_task_manager": str(t["project_task_manager"]),
-                "project_task_end_date": str(t["project_task_end_date"]),
-                "project_task_start_date": str(t["project_task_start_date"]),
-                "project_task_description": str(t["project_task_description"]),
-            })
-        ] for t in item["project_tasks"])
+        "project_tasks": get_project_tasks(item,"project_tasks")
     }
 
 def projectsEntity(entity) -> list:
