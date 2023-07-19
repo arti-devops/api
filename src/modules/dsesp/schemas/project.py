@@ -39,3 +39,16 @@ def projectEntity(item) -> dict:
 
 def projectsEntity(entity) -> list:
     return [projectEntity(item) for item in entity]
+
+def projectTaskEntity(entity) -> dict:
+    return dict({
+        "project_task_id": str(entity["project_task_id"]),
+        "project_task_title": str(entity["project_task_title"]),
+        "project_task_budget": int(entity["project_task_budget"]),
+        "project_task_status": str(entity["project_task_status"]),
+        "project_task_manager": str(entity["project_task_manager"]),
+        "project_task_end_date": str(entity["project_task_end_date"]),
+        "project_task_start_date": str(entity["project_task_start_date"]),
+        "project_task_description": str(entity["project_task_description"]),
+    })
+        
