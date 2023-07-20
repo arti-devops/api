@@ -9,4 +9,5 @@ logsdb = conn.dsi.logs
 membersdb = conn.dsi.members
 devicesdb = conn.dsi.devices
 logsrawdb = conn.dsi.logs_raw
-projectsdb = conn.dsi.projects
+#projectsdb = conn.dsi.projects
+projectsdb = conn.dsi.os

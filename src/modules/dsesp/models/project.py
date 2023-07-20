@@ -79,4 +79,12 @@ class UpdateProject(BaseModel):
 class PostProject(BaseModel):
     project: ProjectModel
 
+class PostProjectTask(BaseModel):
+    project_id: str
+    task: ProjectTaskModel
+
+class DeleteProjectTask(BaseModel):
+    project_id: str
+    project_task_id: str
+
 # !SECTION - Create Project
