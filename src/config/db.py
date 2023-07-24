@@ -5,9 +5,12 @@ from src.config.env import MONGODB_HOST, MONGODB_PORT
 conn = pymongo.MongoClient(MONGODB_HOST,port=MONGODB_PORT)
 
 # Documents
-logsdb = conn.dsi.logs
+logsdb = conn.dsi.nlogs
 membersdb = conn.dsi.members
 devicesdb = conn.dsi.devices
-logsrawdb = conn.dsi.logs_raw
+logsrawdb = conn.dsi.nlogs_raw
 #projectsdb = conn.dsi.projects
 projectsdb = conn.dsi.os
+
+nlogsdb = conn.dsi.nlogs
+nlogsrawdb = conn.dsi.nlogs_raw

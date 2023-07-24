@@ -57,7 +57,7 @@ async def update_project_task(update: PostProjectTask):
         {'$set': {'project_tasks.$': updated_task}})
     return projectEntity(projectsdb.find_one({"_id": ObjectId(id)}))
 
-@project.delete('/delete/task', tags=["Project Tasks CRUD"])
+@project.post('/delete/task', tags=["Project Tasks CRUD"])
 async def delete_project_task(delete: DeleteProjectTask):
     id = delete.project_id
     task_id = delete.project_task_id
